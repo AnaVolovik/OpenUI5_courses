@@ -37,13 +37,13 @@
 						<ToolbarSpacer />
 						<SearchField
 							id="searchField"
-							tooltip="{i18n>worklistSearchTooltip}"
+							tooltip="{i18n>worklistSearchTooltipDocumentNumber}"
 							search="onSearch"
 							width="auto">
 						</SearchField>
 						<SearchField
 							id="searchFieldPlant"
-							tooltip="{i18n>worklistSearchTooltip}"
+							tooltip="{i18n>worklistSearchTooltipPlantText}"
 							search="onSearchPlant"
 							width="auto">
 						</SearchField>
