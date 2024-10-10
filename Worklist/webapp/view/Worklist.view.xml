@@ -2,8 +2,7 @@
 	controllerName="zjblessons.Worklist.controller.Worklist"
 	xmlns="sap.m"
 	xmlns:mvc="sap.ui.core.mvc"
-	xmlns:semantic="sap.f.semantic"
-	xmlns:format="zjblessons.Worklist.model.dateFormatter">
+	xmlns:semantic="sap.f.semantic">
 
 	<semantic:SemanticPage
 		id="page"
