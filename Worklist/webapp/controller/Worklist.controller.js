@@ -69,14 +69,20 @@ sap.ui.define([
 
 			aItems.forEach(function(oContext) {
 					var oData = oContext.getObject();
-					
-					// Formatting the dates
-					var createdFormatted = this.dateFormatter.formatCreatedDate(oData.Created);
-					var documentDateFormatted = this.dateFormatter.formatDocumentDate(oData.DocumentDate);
-					
-					// Setting the converted values back to the model
-					oContext.getModel().setProperty(oContext.getPath() + "/Created", createdFormatted);
-					oContext.getModel().setProperty(oContext.getPath() + "/DocumentDate", documentDateFormatted);
+
+					// Check if the date has already been formatted
+					if (!oData.isFormatted) {
+						// Formatting the dates
+						var createdFormatted = this.dateFormatter.formatCreatedDate(oData.Created);
+						var documentDateFormatted = this.dateFormatter.formatDocumentDate(oData.DocumentDate);
+						
+						// Setting the converted values back to the model
+						oContext.getModel().setProperty(oContext.getPath() + "/Created", createdFormatted);
+						oContext.getModel().setProperty(oContext.getPath() + "/DocumentDate", documentDateFormatted);
+
+						// Setting the flag that the date has already been formatted
+						oContext.getModel().setProperty(oContext.getPath() + "/isFormatted", true);
+					}
 			}, this);
 				
 			// only update the counter if the length is final and
