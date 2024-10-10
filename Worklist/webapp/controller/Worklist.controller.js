@@ -123,6 +123,16 @@ sap.ui.define([
 
 		},
 
+		onSearchPlant: function(oEvent) {
+			var aTableSearchState = [];
+			var sQuery = oEvent.getParameter("query");
+	
+			if (sQuery && sQuery.length > 0) {
+				aTableSearchState = [new Filter("PlantText", FilterOperator.EQ, sQuery)];
+			}
+			this._applySearch(aTableSearchState);
+		},
+
 		/**
 		 * Event handler for refresh event. Keeps filter, sort
 		 * and group settings and refreshes the list binding.

@@ -40,6 +40,12 @@
 							search="onSearch"
 							width="auto">
 						</SearchField>
+						<SearchField
+							id="searchFieldPlant"
+							tooltip="{i18n>worklistSearchTooltip}"
+							search="onSearchPlant"
+							width="auto">
+						</SearchField>
 					</Toolbar>
 				</headerToolbar>
 
