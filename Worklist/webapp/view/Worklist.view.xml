@@ -20,8 +20,8 @@
 				items="{
 					path: '/zjblessons_base_Headers',
 					sorter: {
-						path: 'Created',
-						descending: false
+						path: 'DocumentDate',
+						descending: true
 					}
 				}"
 				noDataText="{worklistView>/tableNoDataText}"
@@ -44,20 +44,38 @@
 				</headerToolbar>
 
 				<columns>
-					<Column id="nameColumn">
-						<Text text="{i18n>tableNameColumnTitle}" id="nameColumnTitle"/>
-					</Column>
+				    <Column>
+				        <Text text="{i18n>DocumentNumber}" />
+				    </Column>
+				    <Column>
+				        <Text text="{i18n>DocumentDate}" />
+				    </Column>
+				    <Column>
+				        <Text text="{i18n>PlantText}" />
+				    </Column>
+				    <Column>
+				        <Text text="{i18n>RegionText}" />
+				    </Column>
+				    <Column>
+				        <Text text="{i18n>Description}" />
+				    </Column>
+				    <Column>
+				        <Text text="{i18n>Created}" />
+				    </Column>
 				</columns>
 
+
 				<items>
-					<ColumnListItem
-						type="Navigation"
-						press="onPress">
-						<cells>
-							<ObjectIdentifier
-								title="{Created}"/>
-						</cells>
-					</ColumnListItem>
+				    <ColumnListItem>
+				        <cells>
+				            <Text text="{DocumentNumber}" />
+				            <Text text="{DocumentDate}" />
+				            <Text text="{PlantText}" />
+				            <Text text="{RegionText}" />
+				            <Text text="{Description}" />
+				            <Text text="{Created}" />
+				        </cells>
+				    </ColumnListItem>
 				</items>
 			</Table>
 		</semantic:content>
