@@ -2,15 +2,17 @@
 sap.ui.define([
 	"zjblessons/Worklist/controller/BaseController",
 	"sap/ui/model/json/JSONModel",
-	"zjblessons/Worklist/model/formatter",
+	"zjblessons/Worklist/model/numberFormatter",
+	"zjblessons/Worklist/model/dateFormatter",
 	"sap/ui/model/Filter",
 	"sap/ui/model/FilterOperator"
-], function (BaseController, JSONModel, formatter, Filter, FilterOperator) {
+], function (BaseController, JSONModel, numberFormatter, dateFormatter, Filter, FilterOperator) {
 	"use strict";
 
 	return BaseController.extend("zjblessons.Worklist.controller.Worklist", {
 
-		formatter: formatter,
+		numberFormatter: numberFormatter,
+		dateFormatter: dateFormatter,
 
 		onInit : function () {
 			var oViewModel,
@@ -61,7 +63,22 @@ sap.ui.define([
 			// update the worklist's object counter after the table update
 			var sTitle,
 				oTable = oEvent.getSource(),
-				iTotalItems = oEvent.getParameter("total");
+				iTotalItems = oEvent.getParameter("total"),
+				oBinding = oTable.getBinding("items"),
+				aItems = oBinding.getCurrentContexts();
+
+			aItems.forEach(function(oContext) {
+					var oData = oContext.getObject();
+					
+					// Formatting the dates
+					var createdFormatted = this.dateFormatter.formatCreatedDate(oData.Created);
+					var documentDateFormatted = this.dateFormatter.formatDocumentDate(oData.DocumentDate);
+					
+					// Setting the converted values back to the model
+					oContext.getModel().setProperty(oContext.getPath() + "/Created", createdFormatted);
+					oContext.getModel().setProperty(oContext.getPath() + "/DocumentDate", documentDateFormatted);
+			}, this);
+				
 			// only update the counter if the length is final and
 			// the table is not empty
 			if (iTotalItems && oTable.getBinding("items").isLengthFinal()) {
