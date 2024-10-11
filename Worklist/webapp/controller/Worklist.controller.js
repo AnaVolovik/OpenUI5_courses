@@ -63,28 +63,8 @@ sap.ui.define([
 			// update the worklist's object counter after the table update
 			var sTitle,
 				oTable = oEvent.getSource(),
-				iTotalItems = oEvent.getParameter("total"),
-				oBinding = oTable.getBinding("items"),
-				aItems = oBinding.getCurrentContexts();
+				iTotalItems = oEvent.getParameter("total");
 
-			aItems.forEach(function(oContext) {
-					var oData = oContext.getObject();
-
-					// Check if the date has already been formatted
-					if (!oData.isFormatted) {
-						// Formatting the dates
-						var createdFormatted = this.dateFormatter.formatCreatedDate(oData.Created);
-						var documentDateFormatted = this.dateFormatter.formatDocumentDate(oData.DocumentDate);
-						
-						// Setting the converted values back to the model
-						oContext.getModel().setProperty(oContext.getPath() + "/Created", createdFormatted);
-						oContext.getModel().setProperty(oContext.getPath() + "/DocumentDate", documentDateFormatted);
-
-						// Setting the flag that the date has already been formatted
-						oContext.getModel().setProperty(oContext.getPath() + "/isFormatted", true);
-					}
-			}, this);
-				
 			// only update the counter if the length is final and
 			// the table is not empty
 			if (iTotalItems && oTable.getBinding("items").isLengthFinal()) {

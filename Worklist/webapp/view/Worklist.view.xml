@@ -76,11 +76,17 @@
 				    <ColumnListItem>
 				        <cells>
 				            <Text text="{DocumentNumber}" />
-				            <Text text="{DocumentDate}" />
+				            <Text text="{
+				            	path: 'DocumentDate',
+				            	formatter: '.dateFormatter.formatDocumentDate'}"
+				            />
 				            <Text text="{PlantText}" />
 				            <Text text="{RegionText}" />
 				            <Text text="{Description}" />
-				            <Text text="{Created}" />
+				            <Text text="{
+				            	path: 'Created',
+				            	formatter: '.dateFormatter.formatCreatedDate'}"
+				            />
 				        </cells>
 				    </ColumnListItem>
 				</items>
