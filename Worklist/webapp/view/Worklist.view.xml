@@ -1,0 +1,103 @@
+<mvc:View
+	controllerName="zjblessons.Worklist.controller.Worklist"
+	xmlns="sap.m"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns:semantic="sap.f.semantic">
+
+	<semantic:SemanticPage
+		id="page"
+		headerPinnable="false"
+		toggleHeaderOnTitleClick="false">
+
+		<semantic:titleHeading>
+			<Title text="{i18n>worklistTitle}" />
+		</semantic:titleHeading>
+
+		<semantic:content>
+			<Table
+				id="table"
+				width="auto"
+				items="{
+					path: '/zjblessons_base_Headers',
+					sorter: {
+						path: 'DocumentDate',
+						descending: true
+					}
+				}"
+				noDataText="{worklistView>/tableNoDataText}"
+				busyIndicatorDelay="{worklistView>/tableBusyDelay}"
+				growing="true"
+				growingThreshold="15"
+				growingScrollToLoad="true"
+				updateFinished="onUpdateFinished">
+
+				<headerToolbar>
+					<Toolbar>
+						<Title id="tableHeader" text="{worklistView>/worklistTableTitle}"/>
+						<ToolbarSpacer />
+						<SearchField
+							id="searchField"
+							tooltip="{i18n>worklistSearchTooltipDocumentNumber}"
+							search="onSearch"
+							width="auto">
+						</SearchField>
+						<SearchField
+							id="searchFieldPlant"
+							tooltip="{i18n>worklistSearchTooltipPlantText}"
+							search="onSearchPlant"
+							width="auto">
+						</SearchField>
+					</Toolbar>
+				</headerToolbar>
+
+				<columns>
+				    <Column>
+				        <Text text="{i18n>DocumentNumber}" />
+				    </Column>
+				    <Column>
+				        <Text text="{i18n>DocumentDate}" />
+				    </Column>
+				    <Column>
+				        <Text text="{i18n>PlantText}" />
+				    </Column>
+				    <Column>
+				        <Text text="{i18n>RegionText}" />
+				    </Column>
+				    <Column>
+				        <Text text="{i18n>Description}" />
+				    </Column>
+				    <Column>
+				        <Text text="{i18n>Created}" />
+				    </Column>
+				</columns>
+
+
+				<items>
+				    <ColumnListItem>
+				        <cells>
+				            <Text text="{DocumentNumber}" />
+				            <Text text="{
+				            	path: 'DocumentDate',
+				            	formatter: '.dateFormatter.formatDocumentDate'}"
+				            />
+				            <Text text="{PlantText}" />
+				            <Text text="{RegionText}" />
+				            <Text text="{Description}" />
+				            <Text text="{
+				            	path: 'Created',
+				            	formatter: '.dateFormatter.formatCreatedDate'}"
+				            />
+				        </cells>
+				    </ColumnListItem>
+				</items>
+			</Table>
+		</semantic:content>
+
+		<semantic:sendEmailAction>
+			<semantic:SendEmailAction id="shareEmail" press="onShareEmailPress"/>
+		</semantic:sendEmailAction>
+
+
+	</semantic:SemanticPage>
+
+</mvc:View>
