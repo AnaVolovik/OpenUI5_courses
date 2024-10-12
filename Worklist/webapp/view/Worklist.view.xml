@@ -26,7 +26,7 @@
 
 				<headerToolbar>
 					<Toolbar>
-						<Title id="tableHeader" text="{worklistView>/worklistTableTitle}"/>
+						<Title id="tableHeader"  text="({= ${worklistView>/sCount}})"/>
 						<ToolbarSpacer />
 						<SearchField
 							id="searchField"
