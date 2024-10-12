@@ -51,6 +51,9 @@ sap.ui.define([
 				path: '/zjblessons_base_Headers',
 				sorter: [new Sorter('DocumentDate', true)],
 				template: this._getTableTemplate(),
+				urlParameters: {
+					$select: 'HeaderID,DocumentNumber,DocumentDate,PlantText,RegionText,Description,Created'
+				},
 				events: {
 					dataReceived: (oData) => {
 						debugger;
