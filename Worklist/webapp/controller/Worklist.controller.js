@@ -40,6 +40,57 @@ sap.ui.define([
 			});
 		},
 
+		onBeforeRendering: function () {
+			this._bindTable();
+		},
+		
+		_bindTable() {
+			const oTable = this.getView().byId('table');
+
+			oTable.bindItems({
+				path: '/zjblessons_base_Headers',
+				sorter: [new Sorter('DocumentDate', true)],
+				template: this._getTableTemplate(),
+				events: {
+					dataReceived: (oData) => {
+						debugger;
+					},
+					dataRequested: (oData) => {
+						debugger;
+					}
+				}
+			});
+		},
+		
+		_getTableTemplate() {
+			const oTemplate = new sap.m.ColumnListItem({
+				type: 'Navigation',
+				navigated: true,
+				cells: [
+					new sap.m.Text({
+						text: '{DocumentNumber}'
+					}),
+					new sap.m.Text({
+						text: '{DocumentDate}}'
+					}),
+					new sap.m.Text({
+						text: '{PlantText}'
+					}),
+					new sap.m.Text({
+						text: '{RegionText}'
+					}),
+					new sap.m.Text({
+						text: '{Description}'
+					}),
+					new sap.m.Text({
+						text: 'Created}'
+					})
+				]
+			});
+			
+			return oTemplate;
+		},
+
 		onUpdateFinished : function (oEvent) {
 			// update the worklist's object counter after the table update
 			var sTitle,

@@ -17,13 +17,6 @@
 			<Table
 				id="table"
 				width="auto"
-				items="{
-					path: '/zjblessons_base_Headers',
-					sorter: {
-						path: 'DocumentDate',
-						descending: true
-					}
-				}"
 				noDataText="{worklistView>/tableNoDataText}"
 				busyIndicatorDelay="{worklistView>/tableBusyDelay}"
 				growing="true"
@@ -71,25 +64,6 @@
 				    </Column>
 				</columns>
 
-
-				<items>
-				    <ColumnListItem>
-				        <cells>
-				            <Text text="{DocumentNumber}" />
-				            <Text text="{
-				            	path: 'DocumentDate',
-				            	formatter: '.dateFormatter.formatDocumentDate'}"
-				            />
-				            <Text text="{PlantText}" />
-				            <Text text="{RegionText}" />
-				            <Text text="{Description}" />
-				            <Text text="{
-				            	path: 'Created',
-				            	formatter: '.dateFormatter.formatCreatedDate'}"
-				            />
-				        </cells>
-				    </ColumnListItem>
-				</items>
 			</Table>
 		</semantic:content>
 
