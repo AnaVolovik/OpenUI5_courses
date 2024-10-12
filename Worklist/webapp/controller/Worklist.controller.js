@@ -5,8 +5,9 @@ sap.ui.define([
 	"zjblessons/Worklist/model/numberFormatter",
 	"zjblessons/Worklist/model/dateFormatter",
 	"sap/ui/model/Filter",
+	"sap/ui/model/Sorter",
 	"sap/ui/model/FilterOperator"
-], function (BaseController, JSONModel, numberFormatter, dateFormatter, Filter, FilterOperator) {
+], function (BaseController, JSONModel, numberFormatter, dateFormatter, Filter, Sorter, FilterOperator) {
 	"use strict";
 
 	return BaseController.extend("zjblessons.Worklist.controller.Worklist", {
