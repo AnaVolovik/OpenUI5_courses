@@ -81,7 +81,7 @@ sap.ui.define([
 						text: '{DocumentNumber}'
 					}),
 					new sap.m.Text({
-						text: '{DocumentDate}}'
+						text: '{DocumentDate}'
 					}),
 					new sap.m.Text({
 						text: '{PlantText}'
@@ -93,7 +93,7 @@ sap.ui.define([
 						text: '{Description}'
 					}),
 					new sap.m.Text({
-						text: 'Created}'
+						text: '{Created}'
 					})
 				]
 			});
