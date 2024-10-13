@@ -97,12 +97,29 @@ sap.ui.define([
 					}),
 					new sap.m.Button({
 						type: 'Transparent',
-						icon: this.getResourceBundle().getText('iDecline')
+						icon: this.getResourceBundle().getText('iDecline'),
+						press: this.onPressDelete.bind(this)
 					})
 				]
 			});
 			
 			return oTemplate;
+		},
+
+		onPressDelete(oEvent){
+			const oBindingContext = oEvent.getSource().getBindingContext(),
+					sKey = this.getModel().createKey('/zjblessons_base_Headers', {
+						HeaderID: oBindingContext.getProperty('HeaderID')
+					});
+					
+					this.getModel().remove(sKey, {
+						success: (oData) => {
+							console.log('Delete successful:', oData);
+						},
+						error: (oError) => {
+							console.error('Delete failed:', oError);
+						}
+					});
 		},
 
 		onUpdateFinished : function (oEvent) {
