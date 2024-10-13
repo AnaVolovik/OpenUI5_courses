@@ -94,6 +94,10 @@ sap.ui.define([
 					}),
 					new sap.m.Text({
 						text: '{Created}'
+					}),
+					new sap.m.Button({
+						type: 'Transparent',
+						icon: this.getResourceBundle().getText('iDecline')
 					})
 				]
 			});

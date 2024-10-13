@@ -62,6 +62,9 @@
 				    <Column>
 				        <Text text="{i18n>Created}" />
 				    </Column>
+						 <Column width="5%">
+				        <Text text="" />
+				    </Column>
 				</columns>
 
 			</Table>
