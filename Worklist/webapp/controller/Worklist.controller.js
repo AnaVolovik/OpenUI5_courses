@@ -110,16 +110,27 @@ sap.ui.define([
 			const oBindingContext = oEvent.getSource().getBindingContext(),
 					sKey = this.getModel().createKey('/zjblessons_base_Headers', {
 						HeaderID: oBindingContext.getProperty('HeaderID')
-					});
+					}),
+					sBoxMessage = this.getResourceBundle().getText("MessageBoxMessage"),
+					sBoxTitle = this.getResourceBundle().getText("MessageBoxTitle");
 					
-					this.getModel().remove(sKey, {
-						success: (oData) => {
-							console.log('Delete successful:', oData);
-						},
-						error: (oError) => {
-							console.error('Delete failed:', oError);
+			sap.m.MessageBox.confirm(sBoxMessage, {
+					title: sBoxTitle,
+					onClose: (oAction) => {
+						if (oAction === sap.m.MessageBox.Action.OK) {
+							this.getModel().remove(sKey, {
+									success: (oData) => {
+										console.log('Delete successful:', oData);
+									},
+									error: (oError) => {
+										console.error('Delete failed:', oError);
+									}
+							});
+						} else {
+							console.log('Delete action canceled');
 						}
-					});
+					}
+				});
 		},
 
 		onUpdateFinished : function (oEvent) {
