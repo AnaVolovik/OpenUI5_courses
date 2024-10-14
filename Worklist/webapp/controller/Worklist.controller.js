@@ -133,6 +133,12 @@ sap.ui.define([
 				});
 		},
 
+		onPressRefresh() {
+			const sMessageToast = this.getResourceBundle().getText("MessageToastMessage");
+			this._bindTable();
+			sap.m.MessageToast.show(sMessageToast);
+		},
+
 		onUpdateFinished : function (oEvent) {
 			// update the worklist's object counter after the table update
 			var sTitle,

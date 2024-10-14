@@ -40,6 +40,11 @@
 							search="onSearchPlant"
 							width="auto">
 						</SearchField>
+						<Button
+							icon="{i18n>iRefresh}"
+							type="Transparent"
+							press="onPressRefresh"
+						/>
 					</Toolbar>
 				</headerToolbar>
 
