@@ -1,10 +1,8 @@
-/* global document */
 sap.ui.define([
 	"sap/ui/core/UIComponent",
 	"sap/ui/Device",
-	"zjblessons/Worklist/model/models",
 	"zjblessons/Worklist/controller/ErrorHandler"
-], function (UIComponent, Device, models, ErrorHandler) {
+], function (UIComponent, Device, ErrorHandler) {
 	"use strict";
 
 	return UIComponent.extend("zjblessons.Worklist.Component", {
@@ -17,8 +15,6 @@ sap.ui.define([
 			UIComponent.prototype.init.apply(this, arguments);
 
 			this._oErrorHandler = new ErrorHandler(this);
-
-			this.setModel(models.createDeviceModel(), "device");
 
 			this.getRouter().initialize();
 		},
@@ -35,7 +31,6 @@ sap.ui.define([
 				} else if (!Device.support.touch) {
 					this._sContentDensityClass = "sapUiSizeCompact";
 				} else {
-					// "cozy" in case of touch support; default for most sap.m controls, but needed for desktop-first controls like sap.ui.table.Table
 					this._sContentDensityClass = "sapUiSizeCozy";
 				}
 			}

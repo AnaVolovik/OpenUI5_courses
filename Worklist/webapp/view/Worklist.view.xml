@@ -1,85 +1,76 @@
 <mvc:View
 	controllerName="zjblessons.Worklist.controller.Worklist"
 	xmlns="sap.m"
-	xmlns:mvc="sap.ui.core.mvc"
-	xmlns:semantic="sap.f.semantic">
+	xmlns:mvc="sap.ui.core.mvc">
 
-	<semantic:SemanticPage
-		id="page"
-		headerPinnable="false"
-		toggleHeaderOnTitleClick="false">
+<Page>
+	<customHeader>
+			<Bar>
+				<contentLeft>
+					<Title class="sapUiMediumMarginBegin" text="{i18n>worklistTitle}" />
+				</contentLeft>
+			</Bar>
+	</customHeader>
+	<Table
+		id="table"
+		width="auto"
+		growing="true"
+		growingThreshold="15"
+		growingScrollToLoad="true">
 
-		<semantic:titleHeading>
-			<Title text="{i18n>worklistTitle}" />
-		</semantic:titleHeading>
+		<headerToolbar>
+			<Toolbar>
+				<Title id="tableHeader"  text="({= ${worklistView>/sCount}})"/>
+				<ToolbarSpacer />
+				<SearchField
+					id="searchField"
+					tooltip="{i18n>worklistSearchTooltipDocumentNumber}"
+					search="onSearch"
+					width="auto">
+				</SearchField>
+				<SearchField
+					id="searchFieldPlant"
+					tooltip="{i18n>worklistSearchTooltipPlantText}"
+					search="onSearchPlant"
+					width="auto">
+				</SearchField>
+				<Button
+					icon="{i18n>iCreate}"
+					type="Emphasized"
+					press="onPressCreate"
+				/>
+				<Button
+					icon="{i18n>iRefresh}"
+					type="Transparent"
+					press="onPressRefresh"
+				/>
+			</Toolbar>
+		</headerToolbar>
 
-		<semantic:content>
-			<Table
-				id="table"
-				width="auto"
-				noDataText="{worklistView>/tableNoDataText}"
-				busyIndicatorDelay="{worklistView>/tableBusyDelay}"
-				growing="true"
-				growingThreshold="15"
-				growingScrollToLoad="true"
-				updateFinished="onUpdateFinished">
-
-				<headerToolbar>
-					<Toolbar>
-						<Title id="tableHeader"  text="({= ${worklistView>/sCount}})"/>
-						<ToolbarSpacer />
-						<SearchField
-							id="searchField"
-							tooltip="{i18n>worklistSearchTooltipDocumentNumber}"
-							search="onSearch"
-							width="auto">
-						</SearchField>
-						<SearchField
-							id="searchFieldPlant"
-							tooltip="{i18n>worklistSearchTooltipPlantText}"
-							search="onSearchPlant"
-							width="auto">
-						</SearchField>
-						<Button
-							icon="{i18n>iRefresh}"
-							type="Transparent"
-							press="onPressRefresh"
-						/>
-					</Toolbar>
-				</headerToolbar>
-
-				<columns>
-				    <Column>
-				        <Text text="{i18n>DocumentNumber}" />
-				    </Column>
-				    <Column>
-				        <Text text="{i18n>DocumentDate}" />
-				    </Column>
-				    <Column>
-				        <Text text="{i18n>PlantText}" />
-				    </Column>
-				    <Column>
-				        <Text text="{i18n>RegionText}" />
-				    </Column>
-				    <Column>
-				        <Text text="{i18n>Description}" />
-				    </Column>
-				    <Column>
-				        <Text text="{i18n>Created}" />
-				    </Column>
-						 <Column width="5%">
-				        <Text text="" />
-				    </Column>
-				</columns>
-
-			</Table>
-		</semantic:content>
-
-		<semantic:sendEmailAction>
-			<semantic:SendEmailAction id="shareEmail" press="onShareEmailPress"/>
-		</semantic:sendEmailAction>
-
-
-	</semantic:SemanticPage>
+		<columns>
+			<Column>
+					<Text text="{i18n>DocumentNumber}" />
+			</Column>
+			<Column>
+					<Text text="{i18n>DocumentDate}" />
+			</Column>
+			<Column>
+					<Text text="{i18n>PlantText}" />
+			</Column>
+			<Column>
+					<Text text="{i18n>RegionText}" />
+			</Column>
+			<Column>
+					<Text text="{i18n>Description}" />
+			</Column>
+			<Column>
+					<Text text="{i18n>Created}" />
+			</Column>
+				<Column width="5%">
+					<Text text="" />
+			</Column>
+		</columns>
+	</Table>
+</Page>
 
 </mvc:View>

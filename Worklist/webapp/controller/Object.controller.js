@@ -1,4 +1,3 @@
-/*global location*/
 sap.ui.define([
 	"zjblessons/Worklist/controller/BaseController",
 	"sap/ui/model/json/JSONModel",
@@ -25,11 +24,9 @@ sap.ui.define([
 
 			this.getRouter().getRoute("object").attachPatternMatched(this._onObjectMatched, this);
 
-			// Store original busy indicator delay, so it can be restored later on
 			iOriginalBusyDelay = this.getView().getBusyIndicatorDelay();
 			this.setModel(oViewModel, "objectView");
 			this.getOwnerComponent().getModel().metadataLoaded().then(function () {
-					// Restore original busy indicator delay for the object view
 					oViewModel.setProperty("/delay", iOriginalBusyDelay);
 				}
 			);
@@ -45,16 +42,6 @@ sap.ui.define([
 			}
 		},
 
-		/* =========================================================== */
-		/* internal methods                                            */
-		/* =========================================================== */
-
-		/**
-		 * Binds the view to the object path.
-		 * @function
-		 * @param {sap.ui.base.Event} oEvent pattern match event in route 'object'
-		 * @private
-		 */
 		_onObjectMatched : function (oEvent) {
 			var sObjectId =  oEvent.getParameter("arguments").objectId;
 			this.getModel().metadataLoaded().then( function() {
@@ -65,12 +52,6 @@ sap.ui.define([
 			}.bind(this));
 		},
 
-		/**
-		 * Binds the view to the object path.
-		 * @function
-		 * @param {string} sObjectPath path to the object to be bound
-		 * @private
-		 */
 		_bindView : function (sObjectPath) {
 			var oViewModel = this.getModel("objectView"),
 				oDataModel = this.getModel();
@@ -81,10 +62,6 @@ sap.ui.define([
 					change: this._onBindingChange.bind(this),
 					dataRequested: function () {
 						oDataModel.metadataLoaded().then(function () {
-							// Busy indicator on view should only be set if metadata is loaded,
-							// otherwise there may be two busy indications next to each other on the
-							// screen. This happens because route matched handler already calls '_bindView'
-							// while metadata is loaded.
 							oViewModel.setProperty("/busy", true);
 						});
 					},
@@ -100,7 +77,6 @@ sap.ui.define([
 				oViewModel = this.getModel("objectView"),
 				oElementBinding = oView.getElementBinding();
 
-			// No data for the binding
 			if (!oElementBinding.getBoundContext()) {
 				this.getRouter().getTargets().display("objectNotFound");
 				return;

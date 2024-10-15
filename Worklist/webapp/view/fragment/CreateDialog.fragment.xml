@@ -1,0 +1,76 @@
+<c:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:c="sap.ui.core"
+>
+	<Dialog 
+		title="{i18n>CreateDialogTitle}"
+		class="sapUiContentPadding"
+		beforeOpen="onDialogBeforeOpen">
+		<content>
+			<VBox>
+				<VBox>
+					<Label text="{i18n>Version}" labelFor="idVersion" />
+					<Input
+						editable="false"
+						value="A"
+						id="idVersion"
+					/>
+				</VBox>
+				<VBox>
+					<Label text="{i18n>HeaderID}" labelFor="idHeaderID" />
+					<Input
+						editable="false"
+						value="0"
+						id="idHearedID"
+					/>
+				</VBox>
+				<VBox>
+					<Label text="{i18n>DocumentNumber}" labelFor="idDocumentNumber" />
+					<Input
+						value="{DocumentNumber}"
+						id="idDocumentNumber"
+					/>
+				</VBox>
+				<VBox>
+					<Label text="{i18n>Description}" labelFor="idDescription" />
+					<TextArea
+						rows="5"
+						maxLength="256"
+						value="{Description}"
+						id="idDescription"
+					/>
+				</VBox>
+				<VBox>
+					<Label text="{i18n>PlantText}" labelFor="idPlantText" />
+					<Input
+						value="{PlantText}"
+						id="idPlantText"
+					/>
+				</VBox>
+				<VBox>
+					<Label text="{i18n>RegionText}" labelFor="idRegionText" />
+					<Input
+						value="{RegionText}"
+						id="idRegionText"
+					/>
+				</VBox>
+			</VBox>
+		</content>
+		
+		<beginButton>
+			<Button 
+				text="{i18n>BeginButton}"
+				type="Emphasized"
+				press="onPressSave"
+			/>
+		</beginButton>
+		<endButton>
+			<Button 
+				text="{i18n>EndButton}"
+				type="Transparent"
+				press="onPressCancel"
+			/>
+		</endButton>
+	</Dialog>
+	
+</c:FragmentDefinition>

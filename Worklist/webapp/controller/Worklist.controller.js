@@ -1,45 +1,23 @@
-/*global location history */
 sap.ui.define([
 	"zjblessons/Worklist/controller/BaseController",
 	"sap/ui/model/json/JSONModel",
-	"zjblessons/Worklist/model/numberFormatter",
-	"zjblessons/Worklist/model/dateFormatter",
+	"zjblessons/Worklist/model/formatter",
 	"sap/ui/model/Filter",
 	"sap/ui/model/Sorter",
-	"sap/ui/model/FilterOperator"
-], function (BaseController, JSONModel, numberFormatter, dateFormatter, Filter, Sorter, FilterOperator) {
+	"sap/ui/model/FilterOperator",
+	"sap/ui/core/Fragment"
+], function (BaseController, JSONModel, formatter, Filter, Sorter, FilterOperator, Fragment) {
 	"use strict";
 
 	return BaseController.extend("zjblessons.Worklist.controller.Worklist", {
 
-		numberFormatter: numberFormatter,
-		dateFormatter: dateFormatter,
+		formatter: formatter,
 
 		onInit : function () {
-			var oViewModel,
-				iOriginalBusyDelay,
-				oTable = this.byId("table");
-
-			iOriginalBusyDelay = oTable.getBusyIndicatorDelay();
-			// keeps the search state
-			this._aTableSearchState = [];
-
-			// Model used to manipulate control states
-			oViewModel = new JSONModel({
+			const oViewModel = new JSONModel({
 				sCount : '0',
-				//worklistTableTitle : this.getResourceBundle().getText("worklistTableTitle"),
-				//shareOnJamTitle: this.getResourceBundle().getText("worklistTitle"),
-				//shareSendEmailSubject: this.getResourceBundle().getText("shareSendEmailWorklistSubject"),
-				//shareSendEmailMessage: this.getResourceBundle().getText("shareSendEmailWorklistMessage", [location.href]),
-				//tableNoDataText : this.getResourceBundle().getText("tableNoDataText"),
-				//tableBusyDelay : 0
 			});
 			this.setModel(oViewModel, "worklistView");
-
-			oTable.attachEventOnce("updateFinished", function(){
-				// Restore original busy indicator delay for worklist's table
-				oViewModel.setProperty("/tableBusyDelay", iOriginalBusyDelay);
-			});
 		},
 
 		onBeforeRendering: function () {
@@ -139,29 +117,50 @@ sap.ui.define([
 			sap.m.MessageToast.show(sMessageToast);
 		},
 
-		onUpdateFinished : function (oEvent) {
-			// update the worklist's object counter after the table update
-			var sTitle,
-				oTable = oEvent.getSource(),
-				iTotalItems = oEvent.getParameter("total");
+		onPressCreate() {
+			this._loadCreateDialog();
+		},
 
-			// only update the counter if the length is final and
-			// the table is not empty
-			if (iTotalItems && oTable.getBinding("items").isLengthFinal()) {
-				sTitle = this.getResourceBundle().getText("worklistTableTitleCount", [iTotalItems]);
-			} else {
-				sTitle = this.getResourceBundle().getText("worklistTableTitle");
+		_loadCreateDialog : async function () {
+			if (!this._oDialog) {
+				this._oDialog = await Fragment.load({
+					name: "zjblessons.Worklist.view.fragment.CreateDialog",
+					controller: this,
+					id: "DialogAddNewRow"
+				}).then(oDialog => {
+					this.getView().addDependent(oDialog);
+					return oDialog;
+				})	
 			}
-			this.getModel("worklistView").setProperty("/worklistTableTitle", sTitle);
+			this._oDialog.open();
 		},
 
-		onPress : function (oEvent) {
-			// The source is the list item that got pressed
-			this._showObject(oEvent.getSource());
+		onDialogBeforeOpen(oEvent) {
+			const oDialog = oEvent.getSource(),
+					oParams = {
+						Version: "A",
+						HeaderID: "0"
+					},
+					oEntry = this.getModel().createEntry("/zjblessons_base_Headers", {
+						properties: oParams
+					});
+
+			oDialog.setBindingContext(oEntry);
 		},
 
-		onNavBack : function() {
-			history.go(-1);
+		onPressSave(oEvent) {
+			const oDialog = this._oDialog,
+							oBindingContext = oDialog.getBindingContext(),
+							oData = oBindingContext.getObject();
+							console.log("Data to be saved:", oData);
+							
+				this.getModel().submitChanges();    
+			this._oDialog.close();
+		},
+		
+		onPressCancel() {
+			this.getModel().resetChanges()
+			this._oDialog.close();
 		},
 
 		onSearch : function (oEvent) {
@@ -204,7 +203,6 @@ sap.ui.define([
 			var oTable = this.byId("table"),
 				oViewModel = this.getModel("worklistView");
 			oTable.getBinding("items").filter(aTableSearchState, "Application");
-			// changes the noDataText of the list in case there are no filter results
 			if (aTableSearchState.length !== 0) {
 				oViewModel.setProperty("/tableNoDataText", this.getResourceBundle().getText("worklistNoDataWithSearchText"));
 			}
