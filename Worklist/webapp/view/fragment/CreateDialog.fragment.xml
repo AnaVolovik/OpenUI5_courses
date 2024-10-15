@@ -9,22 +9,6 @@
 		<content>
 			<VBox>
 				<VBox>
-					<Label text="{i18n>Version}" labelFor="idVersion" />
-					<Input
-						editable="false"
-						value="A"
-						id="idVersion"
-					/>
-				</VBox>
-				<VBox>
-					<Label text="{i18n>HeaderID}" labelFor="idHeaderID" />
-					<Input
-						editable="false"
-						value="0"
-						id="idHearedID"
-					/>
-				</VBox>
-				<VBox>
 					<Label text="{i18n>DocumentNumber}" labelFor="idDocumentNumber" />
 					<Input
 						value="{DocumentNumber}"
@@ -35,6 +19,7 @@
 					<Label text="{i18n>Description}" labelFor="idDescription" />
 					<TextArea
 						rows="5"
+						width="100%"
 						maxLength="256"
 						value="{Description}"
 						id="idDescription"
