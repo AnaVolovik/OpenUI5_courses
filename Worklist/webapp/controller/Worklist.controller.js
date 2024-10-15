@@ -163,49 +163,23 @@ sap.ui.define([
 			this._oDialog.close();
 		},
 
-		onSearch : function (oEvent) {
-			if (oEvent.getParameters().refreshButtonPressed) {
-				this.onRefresh();
-			} else {
-				var aTableSearchState = [];
-				var sQuery = oEvent.getParameter("query");
+		onSearch(oEvent) {
+			const sValue = oEvent.getParameter('query');
 
-				if (sQuery && sQuery.length > 0) {
-					aTableSearchState = [new Filter("DocumentNumber", FilterOperator.Contains, sQuery)];
-				}
-				this._applySearch(aTableSearchState);
-			}
-
+			this._searchHandler(sValue);
 		},
 
-		onSearchPlant: function(oEvent) {
-			var aTableSearchState = [];
-			var sQuery = oEvent.getParameter("query");
-	
-			if (sQuery && sQuery.length > 0) {
-				aTableSearchState = [new Filter("PlantText", FilterOperator.EQ, sQuery)];
-			}
-			this._applySearch(aTableSearchState);
-		},
+		_searchHandler(sValue) {
+			const oTable = this.getView().byId('table'),
+						oFilter = new Filter({
+								filters: [
+										new Filter('DocumentNumber', FilterOperator.Contains, sValue),
+										new Filter('PlantText', FilterOperator.EQ, sValue)
+								],
+								and: false
+						});
 
-		onRefresh : function () {
-			var oTable = this.byId("table");
-			oTable.getBinding("items").refresh();
-		},
-
-		_showObject : function (oItem) {
-			this.getRouter().navTo("object", {
-				objectId: oItem.getBindingContext().getProperty("HeaderID")
-			});
-		},
-
-		_applySearch: function(aTableSearchState) {
-			var oTable = this.byId("table"),
-				oViewModel = this.getModel("worklistView");
-			oTable.getBinding("items").filter(aTableSearchState, "Application");
-			if (aTableSearchState.length !== 0) {
-				oViewModel.setProperty("/tableNoDataText", this.getResourceBundle().getText("worklistNoDataWithSearchText"));
-			}
+			oTable.getBinding('items').filter(oFilter);
 		}
 
 	});

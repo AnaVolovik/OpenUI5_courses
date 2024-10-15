@@ -24,14 +24,8 @@
 				<ToolbarSpacer />
 				<SearchField
 					id="searchField"
-					tooltip="{i18n>worklistSearchTooltipDocumentNumber}"
+					tooltip="{i18n>worklistSearchTooltip}"
 					search="onSearch"
-					width="auto">
-				</SearchField>
-				<SearchField
-					id="searchFieldPlant"
-					tooltip="{i18n>worklistSearchTooltipPlantText}"
-					search="onSearchPlant"
 					width="auto">
 				</SearchField>
 				<Button
