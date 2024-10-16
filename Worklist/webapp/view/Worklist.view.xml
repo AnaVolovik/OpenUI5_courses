@@ -21,6 +21,14 @@
 		<headerToolbar>
 			<Toolbar>
 				<Title id="tableHeader"  text="({= ${worklistView>/sCount}})"/>
+				<VBox class="sapUiSmallMargin">
+					<Label text="{i18n>filterDateRange}" labelFor="idFilterDocumentDate"/>
+						<DateRangeSelection
+							id="idFilterDocumentDate"
+							class="idFilterDocumentDate"
+							width="300px"
+							change="_onDateRangeChange"/>
+				</VBox>
 				<ToolbarSpacer />
 				<SearchField
 					id="searchField"

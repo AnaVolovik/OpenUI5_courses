@@ -179,6 +179,16 @@ sap.ui.define([
 						});
 
 			oTable.getBinding('items').filter(oFilter);
+		},
+
+		_onDateRangeChange(oEvent) {
+			const oTable = this.getView().byId('table'),
+				  oDateRange = oEvent.getSource(),
+				  oStartDate = oDateRange.getDateValue(),
+		    	  oEndDate = oDateRange.getSecondDateValue(),
+				  oFilter = new sap.ui.model.Filter("DocumentDate", sap.ui.model.FilterOperator.BT, oStartDate, oEndDate);
+
+			oTable.getBinding('items').filter([oFilter]);
 		}
 
 	});
