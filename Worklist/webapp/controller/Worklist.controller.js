@@ -150,11 +150,10 @@ sap.ui.define([
 
 		onPressSave(oEvent) {
 			const oDialog = this._oDialog,
-							oBindingContext = oDialog.getBindingContext(),
-							oData = oBindingContext.getObject();
-							console.log("Data to be saved:", oData);
-							
-				this.getModel().submitChanges();    
+						oBindingContext = oDialog.getBindingContext(),
+						oData = oBindingContext.getObject();
+
+			this.getModel().submitChanges();
 			this._oDialog.close();
 		},
 		
