@@ -189,6 +189,15 @@ sap.ui.define([
 				  oFilter = new sap.ui.model.Filter("DocumentDate", sap.ui.model.FilterOperator.BT, oStartDate, oEndDate);
 
 			oTable.getBinding('items').filter([oFilter]);
+		},
+
+		onItemSelect(oEvent) {
+			const oSelectedItem = oEvent.getParameter('listItem'),
+						sHeaderId = oSelectedItem.getBindingContext().getProperty('HeaderID');
+
+			this.getRouter().navTo('object', {
+				objectId: sHeaderId
+			})
 		}
 
 	});
