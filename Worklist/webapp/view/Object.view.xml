@@ -7,7 +7,23 @@
 			title="{DocumentNumber}"
 			showFooter="false"
 	>
+		<content>
+			<IconTabBar
+				expandable="false"
+				headerMode="Inline"
+				selectedKey="list">
 
+				<items>
+					<IconTabFilter key="list" text="{i18n>list}" icon="{i18n>iList}">
+					
+					</IconTabFilter>
+					<IconTabFilter key="form" text="{i18n>form}" icon="{i18n>iForm}">
+					
+					</IconTabFilter>
+				</items>
+				
+			</IconTabBar>
+		</content>
 	</Page>
 
 </mvc:View>
