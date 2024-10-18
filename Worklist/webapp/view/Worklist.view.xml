@@ -74,7 +74,10 @@
 			<Column>
 					<Text text="{i18n>Created}" />
 			</Column>
-				<Column width="5%">
+			<Column width="7%">
+					<Text text="" />
+			</Column>
+			<Column width="5%">
 					<Text text="" />
 			</Column>
 		</columns>

@@ -34,7 +34,7 @@ sap.ui.define([
 				template: this._getTableTemplate(),
 				filters: this._getTableFilters(),
 				urlParameters: {
-					$select: 'HeaderID,DocumentNumber,DocumentDate,PlantText,RegionText,Description,Created'
+					$select: 'HeaderID,DocumentNumber,DocumentDate,PlantText,RegionText,Description,Created,Version'
 				},
 				events: {
 					dataRequested: (oData) => {
@@ -74,6 +74,10 @@ sap.ui.define([
 					}),
 					new sap.m.Text({
 						text: '{Created}'
+					}),
+					new sap.m.Switch({
+						state: "{= ${Version} === 'D'}",
+						change: this.onChangeVersion.bind(this)
 					}),
 					new sap.m.Button({
 						type: 'Transparent',
@@ -169,6 +173,14 @@ sap.ui.define([
 		onPressCancel() {
 			this.getModel().resetChanges()
 			this._oDialog.close();
+		},
+
+		onChangeVersion(oEvent) {
+			const sVersion = oEvent.getParameter('state') ? 'D' : 'A',
+						sPath = oEvent.getSource().getBindingContext().getPath();
+
+			this.getModel().setProperty(`${sPath}/Version`, sVersion);
+			this.getModel().submitChanges();
 		},
 
 		onSearch(oEvent) {
