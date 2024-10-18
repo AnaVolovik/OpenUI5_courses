@@ -99,13 +99,17 @@ sap.ui.define([
 
 		onPressDelete(oEvent){
 			const oBindingContext = oEvent.getSource().getBindingContext(),
-					sKey = this.getModel().createKey('/zjblessons_base_Headers', {
-						HeaderID: oBindingContext.getProperty('HeaderID')
-					}),
-					sBoxMessage = this.getResourceBundle().getText("MessageBoxMessage"),
-					sBoxTitle = this.getResourceBundle().getText("MessageBoxTitle");
+						sKey = this.getModel().createKey('/zjblessons_base_Headers', {
+							HeaderID: oBindingContext.getProperty('HeaderID')
+						}),
+						sPath = oBindingContext.getPath(),
+						sVersion = this.getModel().getProperty(`${sPath}/Version`);
 					
-			sap.m.MessageBox.confirm(sBoxMessage, {
+			if (sVersion === 'D') {
+				const sBoxMessage = this.getResourceBundle().getText("MessageBoxMessage"),
+							sBoxTitle = this.getResourceBundle().getText("MessageBoxTitle");
+				
+				sap.m.MessageBox.confirm(sBoxMessage, {
 					title: sBoxTitle,
 					onClose: (oAction) => {
 						if (oAction === sap.m.MessageBox.Action.OK) {
@@ -122,6 +126,11 @@ sap.ui.define([
 						}
 					}
 				});
+				
+			} else {
+				const sMessageToast = this.getResourceBundle().getText("AlertToastMessage");
+				sap.m.MessageToast.show(sMessageToast);
+			}
 		},
 
 		onPressRefresh() {
