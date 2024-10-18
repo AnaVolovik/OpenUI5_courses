@@ -15,7 +15,8 @@ sap.ui.define([
 
 		onInit : function () {
 			const oViewModel = new JSONModel({
-				sCount : '0',
+				sCount: '0',
+				sIconTHKey: 'All'
 			});
 			this.setModel(oViewModel, "worklistView");
 		},
@@ -31,6 +32,7 @@ sap.ui.define([
 				path: '/zjblessons_base_Headers',
 				sorter: [new Sorter('DocumentDate', true)],
 				template: this._getTableTemplate(),
+				filters: this._getTableFilters(),
 				urlParameters: {
 					$select: 'HeaderID,DocumentNumber,DocumentDate,PlantText,RegionText,Description,Created'
 				},
@@ -82,6 +84,13 @@ sap.ui.define([
 			});
 			
 			return oTemplate;
+		},
+
+		_getTableFilters() {
+			const oModel = this.getModel('worklistView'),
+						sSelectedKey = oModel.getProperty('/sIconTHKey');
+
+			return sSelectedKey === 'All' ? [] : [new Filter('Version', FilterOperator.EQ, 'D')];
 		},
 
 		onPressDelete(oEvent){
@@ -183,10 +192,10 @@ sap.ui.define([
 
 		_onDateRangeChange(oEvent) {
 			const oTable = this.getView().byId('table'),
-				  oDateRange = oEvent.getSource(),
-				  oStartDate = oDateRange.getDateValue(),
-		    	  oEndDate = oDateRange.getSecondDateValue(),
-				  oFilter = new sap.ui.model.Filter("DocumentDate", sap.ui.model.FilterOperator.BT, oStartDate, oEndDate);
+						oDateRange = oEvent.getSource(),
+						oStartDate = oDateRange.getDateValue(),
+						oEndDate = oDateRange.getSecondDateValue(),
+						oFilter = new sap.ui.model.Filter("DocumentDate", sap.ui.model.FilterOperator.BT, oStartDate, oEndDate);
 
 			oTable.getBinding('items').filter([oFilter]);
 		},
@@ -198,6 +207,13 @@ sap.ui.define([
 			this.getRouter().navTo('object', {
 				objectId: sHeaderId
 			})
+		},
+
+		onIconTabHeaderSelect(oEvent) {
+			const sSelectedKey = oEvent.getParameter('key');
+
+			this.getModel('worklistView').setProperty('/sIconTHKey', sSelectedKey);
+			this._bindTable()
 		}
 
 	});

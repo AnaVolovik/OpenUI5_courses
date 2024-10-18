@@ -5,11 +5,16 @@
 
 <Page>
 	<customHeader>
-			<Bar>
-				<contentLeft>
-					<Title class="sapUiMediumMarginBegin" text="{i18n>worklistTitle}" />
-				</contentLeft>
-			</Bar>
+			<Toolbar>
+				<content>
+					<IconTabHeader selectedKey="{= ${worklistView>/sIconTHKey}}" select="onIconTabHeaderSelect">
+						<items>
+							<IconTabFilter key="All" text="{i18n>tabHeaderFilterAll}"/>
+							<IconTabFilter key="Deactivated" text="{i18n>tabHeaderFilterDeactivated}"/>
+						</items>
+					</IconTabHeader>
+				</content>
+			</Toolbar>
 	</customHeader>
 	<Table
 		id="table"
@@ -20,7 +25,7 @@
 		growingScrollToLoad="true">
 
 		<headerToolbar>
-			<Toolbar>
+			<Toolbar height="80px">
 				<Title id="tableHeader"  text="({= ${worklistView>/sCount}})"/>
 				<VBox class="sapUiSmallMargin">
 					<Label text="{i18n>filterDateRange}" labelFor="idFilterDocumentDate"/>
