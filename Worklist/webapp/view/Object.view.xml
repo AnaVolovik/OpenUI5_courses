@@ -16,12 +16,28 @@
 				<contentRight>
 					<Button
 						type="Emphasized"
+						press="onPressEdit"
 						text="{i18n>EditButtonText}"
 						icon="{i18n>iEditButton}"
 						visible="{= !${objectView>/bEditMode}}"
 					/>
 					<Button
+						type="Emphasized"
+						press="onPressSave"
+						text="{i18n>SaveButtonText}"
+						icon="{i18n>iSaveButton}"
+						visible="{= ${objectView>/bEditMode}}"
+					/>
+					<Button
 						type="Transparent"
+						press="onPressCancel"
+						text="{i18n>CancelButtonText}"
+						icon="{i18n>iCancelButton}"
+						visible="{= ${objectView>/bEditMode}}"
+					/>
+					<Button
+						type="Transparent"
+						press=""
 						text="{i18n>DeleteButtonText}"
 						icon="{i18n>iDeleteButton}"
 					/>

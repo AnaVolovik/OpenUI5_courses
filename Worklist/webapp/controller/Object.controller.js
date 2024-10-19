@@ -77,6 +77,11 @@ sap.ui.define([
 				this.getRouter().getTargets().display("objectNotFound");
 				return;
 			}
+		},
+
+		onPressEdit() {
+			const oObjectModel = this.getModel("objectView");
+			oObjectModel.setProperty('/bEditMode', true);
 		}
 
 	});
