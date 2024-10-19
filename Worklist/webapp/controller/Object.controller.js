@@ -80,8 +80,34 @@ sap.ui.define([
 		},
 
 		onPressEdit() {
-			const oObjectModel = this.getModel("objectView");
-			oObjectModel.setProperty('/bEditMode', true);
+			this._setEditMode(true);
+		},
+
+		onPressSave() {
+			const oModel = this.getModel(),
+						oObjectView = this.getView(),
+						oPendingChanges = oModel.getPendingChanges(),
+						sPath = oObjectView.getBindingContext().getPath().slice(1);
+
+			if (oPendingChanges.hasOwnProperty(sPath)) {
+				console.log("true");
+				oObjectView.setBusy(true);
+				oModel.submitChanges({
+					success: () => {oObjectView.setBusy(false)},
+					error: () => {oObjectView.setBusy(false)}
+				});
+			}
+			console.log("false");
+			this._setEditMode(false);
+		},
+
+		onPressCancel() {
+			this._setEditMode(false);
+		},
+
+		_setEditMode(bValue) {
+			const oModel = this.getModel("objectView");
+			oModel.setProperty('/bEditMode', bValue);
 		}
 
 	});
