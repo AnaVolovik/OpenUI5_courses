@@ -16,20 +16,16 @@ sap.ui.define([
 		formatter: formatter,
 
 		onInit : function () {
-			var iOriginalBusyDelay,
-				oViewModel = new JSONModel({
-					busy : true,
-					delay : 0
-				});
+			const oViewModel = new JSONModel({
+				busy : true,
+				delay : 0,
+				bEditMode : false,
+				sSelectedTab : "list"
+			});
 
 			this.getRouter().getRoute("object").attachPatternMatched(this._onObjectMatched, this);
 
-			iOriginalBusyDelay = this.getView().getBusyIndicatorDelay();
 			this.setModel(oViewModel, "objectView");
-			this.getOwnerComponent().getModel().metadataLoaded().then(function () {
-					oViewModel.setProperty("/delay", iOriginalBusyDelay);
-				}
-			);
 		},
 
 		onNavBack : function() {
@@ -81,18 +77,6 @@ sap.ui.define([
 				this.getRouter().getTargets().display("objectNotFound");
 				return;
 			}
-
-			var oResourceBundle = this.getResourceBundle(),
-				oObject = oView.getBindingContext().getObject(),
-				sObjectId = oObject.HeaderID,
-				sObjectName = oObject.Created;
-
-			oViewModel.setProperty("/busy", false);
-
-			oViewModel.setProperty("/shareSendEmailSubject",
-			oResourceBundle.getText("shareSendEmailObjectSubject", [sObjectId]));
-			oViewModel.setProperty("/shareSendEmailMessage",
-			oResourceBundle.getText("shareSendEmailObjectMessage", [sObjectName, sObjectId, location.href]));
 		}
 
 	});

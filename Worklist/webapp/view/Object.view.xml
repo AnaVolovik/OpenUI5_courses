@@ -4,14 +4,35 @@
 	xmlns:mvc="sap.ui.core.mvc">
 
 	<Page
-			title="{DocumentNumber}"
-			showFooter="false"
+		showFooter="false"
 	>
+		<customHeader>
+			<Bar>
+				<contentLeft>
+					<Title
+						text="{DocumentNumber}"
+					/>
+				</contentLeft>
+				<contentRight>
+					<Button
+						type="Emphasized"
+						text="{i18n>EditButtonText}"
+						icon="{i18n>iEditButton}"
+						visible="{= !${objectView>/bEditMode}}"
+					/>
+					<Button
+						type="Transparent"
+						text="{i18n>DeleteButtonText}"
+						icon="{i18n>iDeleteButton}"
+					/>
+				</contentRight>
+			</Bar>
+		</customHeader>
 		<content>
 			<IconTabBar
 				expandable="false"
 				headerMode="Inline"
-				selectedKey="list">
+				selectedKey="{= ${objectView>/sSelectedTab}}">
 
 				<items>
 					<IconTabFilter key="list" text="{i18n>list}" icon="{i18n>iList}">
