@@ -2,12 +2,14 @@ sap.ui.define([
 	"zjblessons/Worklist/controller/BaseController",
 	"sap/ui/model/json/JSONModel",
 	"sap/ui/core/routing/History",
-	"zjblessons/Worklist/model/formatter"
+	"zjblessons/Worklist/model/formatter",
+	"sap/ui/core/Fragment"
 ], function (
 	BaseController,
 	JSONModel,
 	History,
-	formatter
+	formatter,
+	Fragment
 ) {
 	"use strict";
 
@@ -26,6 +28,37 @@ sap.ui.define([
 			this.getRouter().getRoute("object").attachPatternMatched(this._onObjectMatched, this);
 
 			this.setModel(oViewModel, "objectView");
+		},
+
+		onBeforeRendering() {
+			this._bindTemplate();
+		},
+
+		async _getPlantTemplate() {
+			this._pPlantTemplate ??= await Fragment.load({
+					name: 'zjblessons.Worklist.view.fragment.template.ComboBoxItem',
+					id: this.getView().getId(),
+					controller: this
+				}).then((oTemplate => {
+					this.getView().addDependent(oTemplate);
+					return oTemplate;
+				}))
+
+				return this._pPlantTemplate;
+		},
+
+		async _bindTemplate() {
+			const oComboBox = this.getView().byId('idPlantTextComboBox'),
+						oTemplate = await this._getPlantTemplate();
+
+			oComboBox.bindItems({
+				path: '/zjblessons_base_Plants',
+				template: oTemplate,
+				events: {
+						dataReceived: () => {oComboBox.setBusy(false)},
+						dataRequested: () => {oComboBox.setBusy(true)}
+				}
+			})
 		},
 
 		onNavBack : function() {
@@ -90,19 +123,18 @@ sap.ui.define([
 						sPath = oObjectView.getBindingContext().getPath().slice(1);
 
 			if (oPendingChanges.hasOwnProperty(sPath)) {
-				console.log("true");
 				oObjectView.setBusy(true);
 				oModel.submitChanges({
 					success: () => {oObjectView.setBusy(false)},
 					error: () => {oObjectView.setBusy(false)}
 				});
 			}
-			console.log("false");
 			this._setEditMode(false);
 		},
 
 		onPressCancel() {
 			this._setEditMode(false);
+			this.getModel().resetChanges();
 		},
 
 		_setEditMode(bValue) {
