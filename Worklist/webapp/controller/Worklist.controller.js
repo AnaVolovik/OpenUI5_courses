@@ -190,7 +190,16 @@ sap.ui.define([
 						sPath = oEvent.getSource().getBindingContext().getPath();
 
 			this.getModel().setProperty(`${sPath}/Version`, sVersion);
-			this.getModel().submitChanges();
+
+			this.getModel().submitChanges({
+				success: () => {
+					this.getModel().read(sPath, {
+						success: (oData) => {
+								this.getModel().setProperty(`${sPath}/Version`, oData.Version);
+						}
+					});
+				}
+			});
 		},
 
 		onSearch(oEvent) {
