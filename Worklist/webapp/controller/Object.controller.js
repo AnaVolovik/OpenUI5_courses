@@ -165,8 +165,17 @@ sap.ui.define([
 		},
 
 		_setEditMode(bValue) {
-			const oModel = this.getModel("objectView");
+			const oModel = this.getModel("objectView"),
+						oIconTabBar = this.getView().byId('idIconTabBar')._getIconTabHeader();
+
+			oIconTabBar.setBlocked(bValue);
 			oModel.setProperty('/bEditMode', bValue);
+		},
+
+		onTabSelect(oEvent) {
+			const sSelectedKey = oEvent.getParameter('selectedKey');
+
+			this.getModel("objectView").setProperty('/sSelectedTab', sSelectedKey);
 		}
 
 	});

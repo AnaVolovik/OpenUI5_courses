@@ -21,7 +21,7 @@
 						press="onPressEdit"
 						text="{i18n>EditButtonText}"
 						icon="{i18n>iEditButton}"
-						visible="{= !${objectView>/bEditMode}}"
+						visible="{= !${objectView>/bEditMode} &amp;&amp; ${objectView>/sSelectedTab} === 'list'}"
 					/>
 					<Button
 						type="Emphasized"
@@ -49,8 +49,10 @@
 		</customHeader>
 		<content>
 			<IconTabBar
+				id="idIconTabBar"
 				expandable="false"
 				headerMode="Inline"
+				select="onTabSelect"
 				selectedKey="{= ${objectView>/sSelectedTab}}">
 
 				<items>
