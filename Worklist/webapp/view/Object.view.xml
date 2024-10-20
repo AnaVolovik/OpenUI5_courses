@@ -177,7 +177,10 @@
 													<Text text="{CreatedByFullName}"/>
 												</form:FormElement>
 												<form:FormElement label="{i18n>Modified}">
-													<Text text="{Modified}"/>
+													<Text text="{
+														path: 'Modified',
+														formatter: '.formatter.formatDate'
+													}"/>
 												</form:FormElement>
 												<form:FormElement label="{i18n>ModifiedByFullName}">
 													<Text text="{ModifiedByFullName}"/>
