@@ -11,6 +11,12 @@
 		<customHeader>
 			<Bar>
 				<contentLeft>
+					<Button
+						type="Transparent"
+						press="onNavBack"
+						icon="{i18n>iNavBack}"
+						width="5%"
+					/>
 					<Title
 						text="{= ${objectView>/bEditMode} ? 'EditMode' : ${DocumentNumber}}"
 					/>
