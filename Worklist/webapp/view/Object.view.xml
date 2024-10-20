@@ -163,7 +163,15 @@
 										<f:FormContainer title="{i18n>formColumnTitleTwo}">
 											<f:formElements>
 												<form:FormElement label="{i18n>Created}">
-													<Text text="{Created}"/>
+													<Text
+														text="{
+															path: 'Created',
+															type: 'sap.ui.model.type.Date',
+															formatOptions: {
+																style: 'short'
+															}
+														}"
+													/>
 												</form:FormElement>
 												<form:FormElement label="{i18n>CreatedByFullName}">
 													<Text text="{CreatedByFullName}"/>
