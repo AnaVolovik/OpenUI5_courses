@@ -1,6 +1,8 @@
-<mvc:View xmlns:core="sap.ui.core"
+<mvc:View xmlns:form="sap.ui.layout.form" xmlns:core="sap.ui.core"
 	controllerName="zjblessons.Worklist.controller.Object"
 	xmlns="sap.m"
+	xmlns:l="sap.ui.layout"
+	xmlns:f="sap.ui.layout.form"
 	xmlns:mvc="sap.ui.core.mvc">
 
 	<Page
@@ -119,7 +121,64 @@
 						</VBox>
 					</IconTabFilter>
 					<IconTabFilter key="form" text="{i18n>form}" icon="{i18n>iForm}">
-					
+						<VBox>
+								<f:Form id="formObjectDocument"
+									editable="false">
+									<f:title>
+										<core:Title text="{DocumentNumber}" />
+									</f:title>
+									<f:layout>
+										<f:ResponsiveGridLayout
+											labelSpanXL="4"
+											labelSpanL="3"
+											labelSpanM="4"
+											labelSpanS="12"
+											adjustLabelSpan="false"
+											emptySpanXL="0"
+											emptySpanL="4"
+											emptySpanM="0"
+											emptySpanS="0"
+											columnsXL="2"
+											columnsL="1"
+											columnsM="1"
+											singleContainerFullSize="false" />
+									</f:layout>
+									<f:formContainers>
+										<f:FormContainer title="{i18n>formColumnTitleOne}">
+											<f:formElements>
+												<form:FormElement label="{i18n>DocumentNumber}">
+													<Text text="{DocumentNumber}"/>
+												</form:FormElement>
+												<form:FormElement label="{i18n>PlantText}">
+													<Text text="{PlantText}"/>
+												</form:FormElement>
+												<form:FormElement label="{i18n>RegionText}">
+													<Text text="{RegionText}"/>
+												</form:FormElement>
+												<form:FormElement label="{i18n>Description}">
+													<Text text="{Description}"/>
+												</form:FormElement>
+											</f:formElements>
+										</f:FormContainer>
+										<f:FormContainer title="{i18n>formColumnTitleTwo}">
+											<f:formElements>
+												<form:FormElement label="{i18n>Created}">
+													<Text text="{Created}"/>
+												</form:FormElement>
+												<form:FormElement label="{i18n>CreatedByFullName}">
+													<Text text="{CreatedByFullName}"/>
+												</form:FormElement>
+												<form:FormElement label="{i18n>Modified}">
+													<Text text="{Modified}"/>
+												</form:FormElement>
+												<form:FormElement label="{i18n>ModifiedByFullName}">
+													<Text text="{ModifiedByFullName}"/>
+												</form:FormElement>
+											</f:formElements>
+										</f:FormContainer>
+									</f:formContainers>
+								</f:Form>
+							</VBox>
 					</IconTabFilter>
 				</items>
 				
