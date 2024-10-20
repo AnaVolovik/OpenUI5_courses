@@ -37,9 +37,10 @@
 					/>
 					<Button
 						type="Transparent"
-						press=""
+						press="onPressDelete"
 						text="{i18n>DeleteButtonText}"
 						icon="{i18n>iDeleteButton}"
+						visible="{= ${Version} === 'D' }"
 					/>
 				</contentRight>
 			</Bar>

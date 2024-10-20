@@ -137,6 +137,33 @@ sap.ui.define([
 			this.getModel().resetChanges();
 		},
 
+		onPressDelete(oEvent) {
+			const oBindingContext = oEvent.getSource().getBindingContext(),
+				sKey = this.getModel().createKey('/zjblessons_base_Headers', {
+					HeaderID: oBindingContext.getProperty('HeaderID')
+				}),
+				oObjectView = this.getView();
+			
+			const sBoxMessage = this.getResourceBundle().getText("MessageBoxMessage"),
+				sBoxTitle = this.getResourceBundle().getText("MessageBoxTitle");
+			
+			sap.m.MessageBox.confirm(sBoxMessage, {
+				title: sBoxTitle,
+				onClose: (oAction) => {
+					if (oAction === sap.m.MessageBox.Action.OK) {
+						oObjectView.setBusy(true);
+						this.getModel().remove(sKey, {
+							success: () => {
+								oObjectView.setBusy(false);
+								this.getRouter().navTo("worklist");
+							},
+							error: () => { oObjectView.setBusy(false); }
+						});
+					}
+				}
+			});
+		},
+
 		_setEditMode(bValue) {
 			const oModel = this.getModel("objectView");
 			oModel.setProperty('/bEditMode', bValue);
